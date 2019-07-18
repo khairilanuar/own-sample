@@ -8,6 +8,8 @@ class District extends Model
 {
     protected $table = 'districts';
 
+    public $timestamps = false;
+
     protected $guarded = [];
 
     public function state() {

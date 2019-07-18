@@ -11,6 +11,8 @@
 |
 */
 
+Route::resource('form', FormsController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });

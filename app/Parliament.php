@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Parliament extends Model
 {
     protected $table = 'parliaments';
+    public $timestamps = false;
     protected $guarded = [];
 
     public function district() {
