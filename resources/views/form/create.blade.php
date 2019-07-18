@@ -2,10 +2,11 @@
 
 @section('content')
     <div class="col-12">
-        <form>
+        <form name="formTest" id="formTest" action="{{ route('form.store') }}" method="POST">
+            @csrf
             <div class="form-group">
-                <label for="state">Negeri</label>
-                <select class="form-control" name="state" id="state">
+                <label for="state_id">Negeri</label>
+                <select class="form-control" name="state_id" id="state_id">
                     <option></option>
                     @foreach($states as $state)
                         <option value="{{ $state->id }}">{{ $state->name }}</option>
@@ -13,18 +14,18 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="district">Daerah</label>
-                <select class="form-control" name="district" id="district" disabled>
+                <label for="district_id">Daerah</label>
+                <select class="form-control" name="district_id" id="district_id" disabled>
                 </select>
             </div>
             <div class="form-group">
-                <label for="parliament">Parlimen</label>
-                <select class="form-control" name="parliament" id="parliament" disabled>
+                <label for="parliament_id">Parlimen</label>
+                <select class="form-control" name="parliament_id" id="parliament_id" disabled>
                 </select>
             </div>
             <div class="form-group">
-                <label for="dun">Dun</label>
-                <select class="form-control" name="dun" id="dun" disabled>
+                <label for="dun_id">Dun</label>
+                <select class="form-control" name="dun_id" id="dun_id" disabled>
                 </select>
             </div>
             <div class="form-group">
@@ -46,11 +47,11 @@
         $(document).ready(function () {
 
             // state change
-            $('select#state').change(function() {
-                var district = $('select#district');
+            $('select#state_id').change(function() {
+                var district = $('select#district_id');
                 district.empty().append('<option></option>');
                 $.each(districts, function (idx, val) {
-                    if (val.state_id == $('select#state').val()) {
+                    if (val.state_id == $('select#state_id').val()) {
                         district.append('<option value="'+val.id+'">'+val.name+'</option>');
                     }
                 });
@@ -61,16 +62,16 @@
                     district.attr('disabled', 'disabled');
                 }
 
-                $('select#parliament').val('');
-                $('select#dun').val('');
+                $('select#parliament_id').val('');
+                $('select#dun_id').val('');
             });
 
             // district change
-            $('select#district').change(function() {
-                var parliament = $('select#parliament');
+            $('select#district_id').change(function() {
+                var parliament = $('select#parliament_id');
                 parliament.empty().append('<option></option>');
                 $.each(parliaments, function (idx, val) {
-                    if (val.district_id == $('select#district').val()) {
+                    if (val.district_id == $('select#district_id').val()) {
                         parliament.append('<option value="'+val.id+'">'+val.name+'</option>');
                     }
                 });
@@ -81,15 +82,15 @@
                     parliament.attr('disabled', 'disabled');
                 }
 
-                $('select#dun').val('');
+                $('select#dun_id').val('');
             });
 
             // parliament change
-            $('select#parliament').change(function() {
-                var dun = $('select#dun');
+            $('select#parliament_id').change(function() {
+                var dun = $('select#dun_id');
                 dun.empty().append('<option></option>');
                 $.each(duns, function (idx, val) {
-                    if (val.parliament_id == $('select#parliament').val()) {
+                    if (val.parliament_id == $('select#parliament_id').val()) {
                         dun.append('<option value="'+val.id+'">'+val.name+'</option>');
                     }
                 });

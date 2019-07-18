@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\District;
 use App\Dun;
+use App\Form;
 use App\Parliament;
 use App\State;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class FormsController extends Controller
      */
     public function index()
     {
-        return view('form.index');
+        $forms = Form::get();
+        return view('form.index', compact('forms'));
     }
 
     /**
@@ -43,7 +45,11 @@ class FormsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // store
+        Form::create($request->all());
+
+        // redirect
+        return redirect()->route('form.index');
     }
 
     /**
