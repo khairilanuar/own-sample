@@ -71,7 +71,14 @@ class FormsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $form = Form::find($id);
+
+        $states = State::orderBy('Name')->get();
+        $districts = District::orderBy('name')->get();
+        $parliaments = Parliament::orderBy('name')->get();
+        $duns = Dun::orderBy('name')->get();
+
+        return view('form.update', compact('form', 'states', 'districts', 'parliaments', 'duns'));
     }
 
     /**
@@ -83,7 +90,10 @@ class FormsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $form = Form::find($id);
+        $form->update($request->all());
 
+        return redirect()->route('form.index');
     }
 
     /**

@@ -24,6 +24,9 @@
             <td>{{$form->dun->name}}</td>
             <td>{{$form->name}}</td>
             <td>{{$form->identification_no}}</td>
+            <td>
+                <a href="{{ route('form.edit', $form->id) }}" class="btn btn-sm btn-primary">Edit</a>
+            </td>
         </tr>
         @endforeach
         </tbody>
