@@ -83,8 +83,9 @@ class FormsController extends Controller
         $districts = District::orderBy('name')->get();
         $parliaments = Parliament::orderBy('name')->get();
         $duns = Dun::orderBy('name')->get();
+        $health_problems = HealthProblem::get(['name', 'id']);
 
-        return view('form.update', compact('form', 'states', 'districts', 'parliaments', 'duns'));
+        return view('form.update', compact('form', 'states', 'districts', 'parliaments', 'duns', 'health_problems'));
     }
 
     /**
@@ -97,7 +98,11 @@ class FormsController extends Controller
     public function update(Request $request, $id)
     {
         $form = Form::find($id);
-        $form->update($request->all());
+        $updated = $form->update($request->except('health_problems'));
+
+        if ($updated) {
+            $form->health_problems()->sync($request->get('health_problems', []));
+        }
 
         return redirect()->route('form.index');
     }
