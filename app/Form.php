@@ -25,4 +25,9 @@ class Form extends Model
     public function dun() {
         return $this->belongsTo(Dun::class);
     }
+
+    public function health_problems() {
+        // return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
+        return $this->belongsToMany(HealthProblem::class);
+    }
 }

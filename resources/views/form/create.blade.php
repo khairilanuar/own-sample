@@ -36,6 +36,11 @@
                 <label for="identification_no">ID No</label>
                 <input class="form-control" name="identification_no" id="identification_no" placeholder="">
             </div>
+            <div class="form-group">
+                @foreach($health_problems as $health)
+                    <label><input type="checkbox" name="health_problems[]" value="{{ $health->id }}" /> {{ $health->name }}</label>
+                @endforeach
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

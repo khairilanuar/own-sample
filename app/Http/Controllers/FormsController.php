@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\District;
 use App\Dun;
 use App\Form;
+use App\HealthProblem;
 use App\Parliament;
 use App\State;
 use Illuminate\Http\Request;
@@ -33,8 +34,9 @@ class FormsController extends Controller
         $districts = District::orderBy('name')->get();
         $parliaments = Parliament::orderBy('name')->get();
         $duns = Dun::orderBy('name')->get();
+        $health_problems = HealthProblem::get(['name', 'id']);
 
-        return view('form.create', compact('states', 'districts', 'parliaments', 'duns'));
+        return view('form.create', compact('states', 'districts', 'parliaments', 'duns', 'health_problems'));
     }
 
     /**
@@ -46,7 +48,11 @@ class FormsController extends Controller
     public function store(Request $request)
     {
         // store
-        Form::create($request->all());
+        $created = Form::create($request->except('health_problems'));
+
+        if ($created) {
+            $created->health_problems()->sync($request->get('health_problems', []));
+        }
 
         // redirect
         return redirect()->route('form.index');
